@@ -44,6 +44,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float _objectWidth;
 
     private Vector3 impact;
+    private float _knockBackForce = 500;
 
     // Start is called before the first frame update
     public void Initialize()
@@ -155,7 +156,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (!_isDamageDone)
         {
-            go?.GetComponent<PlayerBehaviour>()?.TakeDamage(_doDamageValue, 40, direction);
+            go?.GetComponent<PlayerBehaviour>()?.TakeDamage(_doDamageValue, _knockBackForce, direction);
             _isDamageDone = true;
         }
     }
