@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using EZCameraShake;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerBehaviour : MonoBehaviour
@@ -15,8 +16,14 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject[] AttackTriggers { get => _attackTriggers; set { _attackTriggers = value; } }
 
     [SerializeField] private PunchHitDetection[] _hitDetection;
+
+    [SerializeField] private bool _HitPointsOn;
     [SerializeField] private GameObject _floatingPoints;
     [SerializeField] private Transform _instantiationPointFloatingPoints;
+
+    [SerializeField] private bool _EffectsOn;
+    [SerializeField] private GameObject _HitParticleEffect;
+    [SerializeField] private Transform _instantiationPointParticleEffects;
 
     private int _playerNumber = 1;
     public int PlayerNumber { get => _playerNumber; set { _playerNumber = value; } }    
@@ -144,12 +151,21 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void InstantiateDamage()
     {
-        GameObject go = Instantiate(_floatingPoints, transform.position, Quaternion.identity);
-        go.transform.position = _instantiationPointFloatingPoints.position;
-        go.transform.parent = null;
-        FloatingDamageBehaviour fdb = go.GetComponentInChildren<FloatingDamageBehaviour>();
-        fdb.DamageAmount = _characterStats.ActualDamageTaken;
-        fdb.Initialize();
+        if(_EffectsOn)
+        {
+            GameObject particles = Instantiate(_HitParticleEffect, transform.position, Quaternion.identity);
+            particles.transform.position = _instantiationPointParticleEffects.position;
+            CameraShaker.Instance.ShakeOnce(2,10,0.25f,0.25f);
+        }
+        if(_HitPointsOn)
+        {
+            GameObject go = Instantiate(_floatingPoints, transform.position, Quaternion.identity);
+            go.transform.position = _instantiationPointFloatingPoints.position;
+            go.transform.parent = null;
+            FloatingDamageBehaviour fdb = go.GetComponentInChildren<FloatingDamageBehaviour>();
+            fdb.DamageAmount = _characterStats.ActualDamageTaken;
+            fdb.Initialize();
+        }
     }
 
     private void DoDamage(GameObject go, Vector3 direction)

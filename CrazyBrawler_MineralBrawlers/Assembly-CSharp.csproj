@@ -62,6 +62,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShakeInstance.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShakePresets.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShaker.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\Utilities\CameraUtilities.cs" />
     <Compile Include="Assets\Essentials\Scripts\GUIController.cs" />
     <Compile Include="Assets\Essentials\Scripts\GameController.cs" />
     <Compile Include="Assets\Essentials\Scripts\InGame\GetCharacter.cs" />
