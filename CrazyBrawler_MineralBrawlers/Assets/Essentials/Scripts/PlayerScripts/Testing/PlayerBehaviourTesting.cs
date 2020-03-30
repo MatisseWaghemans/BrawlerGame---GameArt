@@ -124,7 +124,7 @@ public class PlayerBehaviourTesting : MonoBehaviour
     {
         if (!_isDamageDone)
         {
-            go?.GetComponent<PlayerBehaviour>()?.TakeDamage(_doDamageValue, 40, direction);
+            go.GetComponent<PlayerBehaviour>()?.TakeDamage(_doDamageValue, 40, direction);
             _isDamageDone = true;
         }
     }
